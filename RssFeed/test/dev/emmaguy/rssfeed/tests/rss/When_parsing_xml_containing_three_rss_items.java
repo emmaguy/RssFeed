@@ -9,10 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.InputSource;
-
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import dev.emmaguy.rssfeed.core.RssItem;
-import dev.emmaguy.rssfeed.rss.RssItemParserAsyncTask;
+import dev.emmaguy.rssfeed.rss.RssItemSAXHandler;
 
 @RunWith(org.robolectric.RobolectricTestRunner.class)
 public class When_parsing_xml_containing_three_rss_items {
@@ -22,7 +23,11 @@ public class When_parsing_xml_containing_three_rss_items {
     @Before
     public void setup() throws Exception {
 
-	rssItems = new RssItemParserAsyncTask(null, new InputSource(new StringReader(
+	RssItemSAXHandler handler = new RssItemSAXHandler();
+
+	XMLReader parser = XMLReaderFactory.createXMLReader();
+	parser.setContentHandler(handler);
+	parser.parse(new InputSource(new StringReader(
 				"<channel>" + 
 					"<item>" + 
         					"<title>Title1</title>" + 
@@ -38,8 +43,9 @@ public class When_parsing_xml_containing_three_rss_items {
         					"<title>Track3</title>" + 
         					"<link>Link3</link>" + 
 					"</item>" + 
-				"</channel>"))).execute()
-		.get();
+				"</channel>")));
+	
+	rssItems = handler.getRssItems();
     }
 
     @Test
