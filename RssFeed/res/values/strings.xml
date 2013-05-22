@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">RSS Feed of Shazam Tags</string>
-    <string name="artist">Artist:</string>
-    <string name="track_name">Track:</string>
+    <string name="app_name">RSS Feed</string>
     <string name="foundation_feed_icon">Mozilla Foundation Feed Icon</string>
 </resources>

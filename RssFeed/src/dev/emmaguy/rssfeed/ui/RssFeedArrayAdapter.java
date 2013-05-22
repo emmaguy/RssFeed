@@ -2,8 +2,7 @@ package dev.emmaguy.rssfeed.ui;
 
 import java.util.List;
 
-import com.dev.emmaguy.shazamtags.R;
-
+import dev.emmaguy.rssfeed.R;
 import dev.emmaguy.rssfeed.core.RssItem;
 
 import android.content.Context;
@@ -15,13 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class RssFeedArrayAdapter extends ArrayAdapter<RssItem> {
-    private List<RssItem> tags;
+    private List<RssItem> rssItems;
     private LayoutInflater viewInflater;
 
-    public RssFeedArrayAdapter(Context context, int textViewResourceId, List<RssItem> tags) {
-	super(context, textViewResourceId, tags);
+    public RssFeedArrayAdapter(Context context, int textViewResourceId, List<RssItem> rssItems) {
+	super(context, textViewResourceId, rssItems);
 
-	this.tags = tags;
+	this.rssItems = rssItems;
 	this.viewInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -32,13 +31,13 @@ public class RssFeedArrayAdapter extends ArrayAdapter<RssItem> {
 	    view = viewInflater.inflate(R.layout.rss_item, null);
 	}
 
-	RssItem tag = tags.get(position);
-	if (tag != null) {
+	RssItem rssItem = rssItems.get(position);
+	if (rssItem != null) {
 	    TextView title = (TextView) view.findViewById(R.id.title);
 	    TextView artist = (TextView) view.findViewById(R.id.description);
 
-	    title.setText(tag.getTitle());
-	    artist.setText(tag.getDescription());
+	    title.setText(rssItem.getTitle());
+	    artist.setText(rssItem.getDescription());
 	}
 	
 	if(position % 2 == 0) {

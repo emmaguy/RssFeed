@@ -17,10 +17,10 @@ import dev.emmaguy.rssfeed.core.RssItem;
 public class RssItemParserAsyncTask extends AsyncTask<Void, Void, List<RssItem>> {
 
     private InputSource rssFeedSource;
-    private OnRetrievedTagsFromRss retrievedTags;
+    private OnRetrievedRssItems retrievedRssItems;
 
-    public RssItemParserAsyncTask(OnRetrievedTagsFromRss retrievedTags, InputSource rssFeedSource) {
-	this.retrievedTags = retrievedTags;
+    public RssItemParserAsyncTask(OnRetrievedRssItems retrievedRssItems, InputSource rssFeedSource) {
+	this.retrievedRssItems = retrievedRssItems;
 	this.rssFeedSource = rssFeedSource;
     }
 
@@ -46,12 +46,12 @@ public class RssItemParserAsyncTask extends AsyncTask<Void, Void, List<RssItem>>
 	return rssItemSaxHandler.getRssItems();
     }
 
-    public interface OnRetrievedTagsFromRss {
-	public void onRetrievedTags(List<RssItem> tags);
+    public interface OnRetrievedRssItems {
+	public void onRetrievedRssItems(List<RssItem> rssItems);
     }
 
     @Override
-    protected void onPostExecute(List<RssItem> tags) {
-	retrievedTags.onRetrievedTags(tags);
+    protected void onPostExecute(List<RssItem> rssItems) {
+	retrievedRssItems.onRetrievedRssItems(rssItems);
     }
 }

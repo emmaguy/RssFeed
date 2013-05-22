@@ -17,7 +17,7 @@ public class When_trying_to_build_an_rss_item_with_no_link {
     public void should_throw_meaningful_exception() throws Exception {
 
 	exception.expect(Exception.class);
-	exception.expectMessage("Link of a tag cannot be empty");
+	exception.expectMessage("Link of an rss item cannot be empty");
 
 	RssItemBuilder rssItemBuilder = new RssItemBuilder();
 	rssItemBuilder.setTitle("title");

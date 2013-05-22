@@ -9,14 +9,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
-import com.dev.emmaguy.shazamtags.R;
+import dev.emmaguy.rssfeed.R;
 
 import dev.emmaguy.rssfeed.core.RssItem;
 import dev.emmaguy.rssfeed.rss.RssItemParserAsyncTask;
-import dev.emmaguy.rssfeed.rss.RssItemParserAsyncTask.OnRetrievedTagsFromRss;
-import dev.emmaguy.rssfeed.ui.RssFeedListFragment.OnTagSelectedListener;
+import dev.emmaguy.rssfeed.rss.RssItemParserAsyncTask.OnRetrievedRssItems;
+import dev.emmaguy.rssfeed.ui.RssFeedListFragment.OnRssItemSelectedListener;
 
-public class RssFeedActivity extends FragmentActivity implements OnTagSelectedListener, OnRetrievedTagsFromRss {
+public class RssFeedActivity extends FragmentActivity implements OnRssItemSelectedListener, OnRetrievedRssItems {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,42 +37,42 @@ public class RssFeedActivity extends FragmentActivity implements OnTagSelectedLi
     }
 
     @Override
-    public void onRetrievedTags(List<RssItem> tags) {
+    public void onRetrievedRssItems(List<RssItem> rssItems) {
 
-	if (tags.size() == 0) {
+	if (rssItems.size() == 0) {
 	    Toast.makeText(getApplication(), "Failed to retrieve any rss items :-(", Toast.LENGTH_LONG).show();
 	    return;
 	}
 
-	RssFeedListFragment tagsRssFeedListFragment = (RssFeedListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-	if (tagsRssFeedListFragment != null) {
-	    tagsRssFeedListFragment.setTags(tags);
+	RssFeedListFragment rssFeedListFragment = (RssFeedListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+	if (rssFeedListFragment != null) {
+	    rssFeedListFragment.setRssItems(rssItems);
 	} else {
 	    RssFeedListFragment feedListFragment = (RssFeedListFragment) getSupportFragmentManager().findFragmentById(R.id.rss_feed_list);
-	    feedListFragment.setTags(tags);
+	    feedListFragment.setRssItems(rssItems);
 	}
     }
 
     @Override
-    public void onTagSelected(String tagUrl) {
-	RssItemDetailFragment tagDetailFragment = (RssItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.rss_feed_detail);
+    public void onRssItemSelected(String rssItemUrl) {
+	RssItemDetailFragment rssItemDetailFragment = (RssItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.rss_feed_detail);
 	
-	if (tagDetailFragment == null) {
+	if (rssItemDetailFragment == null) {
 
 	    // the detail fragment is not in the layout => we're displaying 1 fragment only
 	    Bundle args = new Bundle();
-	    args.putString("tagUrl", tagUrl);
+	    args.putString("rssItemUrl", rssItemUrl);
 
-	    RssItemDetailFragment newTagDetailFragment = new RssItemDetailFragment();
-	    newTagDetailFragment.setArguments(args);
+	    RssItemDetailFragment newrssItemDetailFragment = new RssItemDetailFragment();
+	    newrssItemDetailFragment.setArguments(args);
 
 	    FragmentTransaction transaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
-	    transaction.replace(R.id.fragment_container, newTagDetailFragment);
+	    transaction.replace(R.id.fragment_container, newrssItemDetailFragment);
 	    transaction.addToBackStack(null);
 	    transaction.commit();
 
 	} else {
-	    tagDetailFragment.showTagUrlInWebView(tagUrl);
+	    rssItemDetailFragment.showRssItemUrlInWebView(rssItemUrl);
 	}
     }
 }

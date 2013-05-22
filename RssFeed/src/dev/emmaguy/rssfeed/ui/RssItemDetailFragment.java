@@ -10,16 +10,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.dev.emmaguy.shazamtags.R;
+import dev.emmaguy.rssfeed.R;
 
 public class RssItemDetailFragment extends Fragment {
-    private String tagUrl;
+    private String rssItemUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 	if (savedInstanceState != null) {
-	    tagUrl = savedInstanceState.getString("tagUrl");
+	    rssItemUrl = savedInstanceState.getString("rssItemUrl");
 	}
 
 	return inflater.inflate(R.layout.rss_item_detail_fragment, container, false);
@@ -31,7 +31,7 @@ public class RssItemDetailFragment extends Fragment {
 
 	Bundle args = getArguments();
 	if (args != null) {
-	    showTagUrlInWebView(args.getString("tagUrl"));
+	    showRssItemUrlInWebView(args.getString("rssItemUrl"));
 	}
     }
 
@@ -39,10 +39,10 @@ public class RssItemDetailFragment extends Fragment {
     public void onSaveInstanceState(Bundle savingState) {
 	super.onSaveInstanceState(savingState);
 
-	savingState.putString("tagUrl", tagUrl);
+	savingState.putString("rssItemUrl", rssItemUrl);
     }
 
-    public void showTagUrlInWebView(String tagUrl) {
+    public void showRssItemUrlInWebView(String rssItemUrl) {
 
 	WebView webView = (WebView) getActivity().findViewById(R.id.web_view);
 	final ProgressBar webViewProgressBar = (ProgressBar) getActivity().findViewById(R.id.page_load_progress_bar);
@@ -62,6 +62,6 @@ public class RssItemDetailFragment extends Fragment {
 	    }
 	});
 	webView.getSettings().setBuiltInZoomControls(true);
-	webView.loadUrl(tagUrl);
+	webView.loadUrl(rssItemUrl);
     }
 }

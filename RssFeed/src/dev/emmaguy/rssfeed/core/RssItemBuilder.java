@@ -8,10 +8,10 @@ public class RssItemBuilder {
     public RssItem build() throws Exception {
 
 	if (isStringIsNullOrEmpty(title)) {
-	    throw new Exception("Title of a tag cannot be empty");
+	    throw new Exception("Title of an rss item cannot be empty");
 	}
 	if (isStringIsNullOrEmpty(link)) {
-	    throw new Exception("Link of a tag cannot be empty");
+	    throw new Exception("Link of an rss item cannot be empty");
 	}
 
 	return new RssItem(title, link, description);

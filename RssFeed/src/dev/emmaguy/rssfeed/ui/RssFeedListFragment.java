@@ -11,27 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.dev.emmaguy.shazamtags.R;
-
+import dev.emmaguy.rssfeed.R;
 import dev.emmaguy.rssfeed.core.RssItem;
 
 public class RssFeedListFragment extends ListFragment {
-    private List<RssItem> tags = new ArrayList<RssItem>();
-    private OnTagSelectedListener listener;
+    private List<RssItem> rssItems = new ArrayList<RssItem>();
+    private OnRssItemSelectedListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 
-	this.setListAdapter(new RssFeedArrayAdapter(getActivity(), R.layout.rss_item, tags));
+	this.setListAdapter(new RssFeedArrayAdapter(getActivity(), R.layout.rss_item, rssItems));
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 
-	RssItemDetailFragment tagDetailFragment = (RssItemDetailFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.rss_feed_list);
-	if (tagDetailFragment != null) {
+	RssItemDetailFragment rssItemDetailFragment = (RssItemDetailFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.rss_feed_list);
+	if (rssItemDetailFragment != null) {
 	    getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
     }
@@ -41,23 +40,23 @@ public class RssFeedListFragment extends ListFragment {
 	return inflater.inflate(R.layout.rss_feed_list_fragment, null);
     }
 
-    public void setTags(List<RssItem> tags) {
-	this.tags.clear();
-	this.tags.addAll(tags);
+    public void setRssItems(List<RssItem> rssItems) {
+	this.rssItems.clear();
+	this.rssItems.addAll(rssItems);
 
 	((RssFeedArrayAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
-    public interface OnTagSelectedListener {
-	public void onTagSelected(String tagUrl);
+    public interface OnRssItemSelectedListener {
+	public void onRssItemSelected(String rssItemUrl);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-	RssItem clickedTag = tags.get(position);
+	RssItem clickedRssItem = rssItems.get(position);
 
-	listener.onTagSelected(clickedTag.getLink());
+	listener.onRssItemSelected(clickedRssItem.getLink());
     }
 
     @Override
@@ -66,9 +65,9 @@ public class RssFeedListFragment extends ListFragment {
 	super.onAttach(activity);
 
 	try {
-	    listener = (OnTagSelectedListener) activity;
+	    listener = (OnRssItemSelectedListener) activity;
 	} catch (ClassCastException e) {
-	    throw new ClassCastException(activity.toString() + " must implement OnTagSelectedListener");
+	    throw new ClassCastException(activity.toString() + " must implement OnRssItemSelectedListener");
 	}
     }
 }

@@ -17,7 +17,7 @@ public class When_trying_to_build_an_rss_item_with_no_title {
     public void should_throw_meaningful_exception() throws Exception {
 
 	exception.expect(Exception.class);
-	exception.expectMessage("Title of a tag cannot be empty");
+	exception.expectMessage("Title of an rss item cannot be empty");
 
 	RssItemBuilder rssItemBuilder = new RssItemBuilder();
 	rssItemBuilder.setLink("link");
