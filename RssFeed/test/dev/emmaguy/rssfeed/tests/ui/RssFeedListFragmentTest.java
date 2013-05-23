@@ -3,9 +3,8 @@ package dev.emmaguy.rssfeed.tests.ui;
 import static org.junit.Assert.assertNotNull;
 import static org.robolectric.Robolectric.shadowOf;
 
-import java.util.List;
-
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,12 +13,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 import dev.emmaguy.rssfeed.R;
-import dev.emmaguy.rssfeed.core.RssItem;
-import dev.emmaguy.rssfeed.rss.RssItemParserAsyncTask.OnRetrievedRssItems;
 import dev.emmaguy.rssfeed.ui.RssFeedActivity;
 import dev.emmaguy.rssfeed.ui.RssFeedListFragment;
 
 @RunWith(org.robolectric.RobolectricTestRunner.class)
+@Ignore("WIP")
 public class RssFeedListFragmentTest {
 
     private RssFeedListFragment rssFeedListFragment;
@@ -44,7 +42,6 @@ public class RssFeedListFragmentTest {
 	FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 	fragmentTransaction.add(rssFeedListFragment, null);
 	fragmentTransaction.commit();
-	
 	
 	shadowOf(activity).callOnStart();
         //shadowOf(activity).callOnResume();

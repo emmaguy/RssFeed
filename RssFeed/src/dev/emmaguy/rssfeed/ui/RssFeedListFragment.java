@@ -29,7 +29,7 @@ public class RssFeedListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 
-	RssItemDetailFragment rssItemDetailFragment = (RssItemDetailFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.rss_feed_list);
+	RssItemDetailFragment rssItemDetailFragment = (RssItemDetailFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.rss_feed_detail);
 	if (rssItemDetailFragment != null) {
 	    getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
